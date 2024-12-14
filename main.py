@@ -3,8 +3,21 @@ from sqlalchemy.orm import Session
 from models import Base, engine, SessionLocal, User
 from schemas import UserCreate, UserSignIn
 from utils import hash_password, verify_password
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Replace with the frontend's domain
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
+
+
+
 
 # Create the database tables
 Base.metadata.create_all(bind=engine)
