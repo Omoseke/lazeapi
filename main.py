@@ -17,6 +17,11 @@ def get_db():
     finally:
         db.close()
 
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the API!"}
+
+
 # Signup endpoint
 @app.post("/signup/")
 def signup(user: UserCreate, db: Session = Depends(get_db)):
